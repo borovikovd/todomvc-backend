@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class TodomvcBackendApplication
 
 fun main(args: Array<String>) {
-	runApplication<TodomvcBackendApplication>(*args)
+    runApplication<TodomvcBackendApplication>(*args)
 }
