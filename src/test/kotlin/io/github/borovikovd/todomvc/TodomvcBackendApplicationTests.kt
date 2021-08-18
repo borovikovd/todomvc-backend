@@ -8,5 +8,6 @@ class TodomvcBackendApplicationTests {
 
     @Test
     fun contextLoads() {
+        // just checks if the context loads
     }
 }
