@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import java.security.Principal
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 
@@ -20,7 +21,7 @@ data class UpdateTodoItemRequest(@field:NotBlank val title: String?, val complet
 @RestController
 class TodoItemResource(val todoItemRepository: TodoItemRepository) {
     @GetMapping("/")
-    fun listItems(): Flux<TodoItemView> {
+    fun listItems(principal: Principal): Flux<TodoItemView> {
         return todoItemRepository.findAll().map { item ->
             TodoItemView(id = item.id, title = item.title, completed = item.completed)
         }
@@ -28,7 +29,7 @@ class TodoItemResource(val todoItemRepository: TodoItemRepository) {
 
     @PostMapping("/")
     fun createItem(@Valid @RequestBody request: CreateTodoItemRequest): Mono<TodoItem> {
-        val todoItem = TodoItem(title = request.title ?: "", completed = false)
+        val todoItem = TodoItem(title = request.title, completed = false)
         return todoItemRepository.save(todoItem)
     }
 

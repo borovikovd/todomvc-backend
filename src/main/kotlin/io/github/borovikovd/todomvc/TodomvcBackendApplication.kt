@@ -3,6 +3,8 @@ package io.github.borovikovd.todomvc
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
@@ -18,6 +20,9 @@ class TodomvcBackendApplication {
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.any())
         .build()
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 }
 
 fun main(args: Array<String>) {
