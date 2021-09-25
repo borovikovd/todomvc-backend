@@ -1,7 +1,8 @@
 create table if not exists todo_item (
     id identity primary key,
     title varchar(1000) not null,
-    completed boolean not null
+    completed boolean not null,
+    ord integer not null
 );
 
 create table if not exists user (

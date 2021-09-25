@@ -13,6 +13,7 @@ import java.util.Date
 class JwtUtil {
     companion object {
         const val ROLES_CLAIM = "roles"
+        const val SECONDS = 1000
     }
 
     @Value("\${jwt.secret}")
@@ -21,6 +22,7 @@ class JwtUtil {
     @Value("\${jwt.sessionTimeSec}")
     var sessionTime: Long = 0
 
+    @Suppress("SwallowedException")
     fun getAllClaimsFromToken(token: String): Claims? {
         return try {
             Jwts
@@ -34,7 +36,7 @@ class JwtUtil {
 
     fun generateToken(user: UserDetails): String {
         val now = Date()
-        val expirationTime = Date(now.time + sessionTime * 1000)
+        val expirationTime = Date(now.time + sessionTime * SECONDS)
         return Jwts
             .builder()
             .setSubject(user.username)
